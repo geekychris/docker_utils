@@ -181,8 +181,7 @@ To list existing Kafka topics:
 
 ```bash
 # Using Docker
-docker exec -it kafka kafka-topics.sh --list --bootstrap-server localhost:9092
-
+docker exec -it zookeeper_mysql_memcache_redis_set-kafka-1 /bin/kafka-topics --list --bootstrap-server localhost:9092
 # Using local Kafka tools
 kafka-topics.sh --list --bootstrap-server localhost:29092
 ```
