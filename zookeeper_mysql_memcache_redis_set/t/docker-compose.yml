@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./data:/var/lib/mysql
+    user: mysql
+
+volumes:
+  hitorro-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /Users/chris/docker_data 

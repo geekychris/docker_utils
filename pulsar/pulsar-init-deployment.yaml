@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yml
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: pulsar-init
+  name: pulsar-init
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: pulsar-init
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f compose.yml
+        kompose.version: 1.35.0 (HEAD)
+      labels:
+        io.kompose.service: pulsar-init
+    spec:
+      containers:
+        - args:
+            - bin/pulsar
+            - initialize-cluster-metadata
+            - --cluster
+            - cluster-a
+            - --zookeeper
+            - zookeeper:2181
+            - --configuration-store
+            - zookeeper:2181
+            - --web-service-url
+            - http://broker:8080
+            - --broker-service-url
+            - pulsar://broker:6650
+          image: apachepulsar/pulsar:latest
+          name: pulsar-init
+      hostname: pulsar-init
+      restartPolicy: Always

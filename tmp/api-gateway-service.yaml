@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yml
+    kompose.service.nodeport.port: "30000"
+    kompose.service.type: NodePort
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  ports:
+    - name: "8080"
+      nodePort: 30000
+      port: 8080
+      targetPort: 8080
+  selector:
+    io.kompose.service: api-gateway
+  type: NodePort

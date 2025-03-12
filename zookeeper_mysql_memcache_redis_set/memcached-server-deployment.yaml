@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: memcached-server
+  name: memcached-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: memcached-server
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.35.0 (HEAD)
+      labels:
+        io.kompose.service: memcached-server
+    spec:
+      containers:
+        - image: memcached
+          name: memcached-server
+          ports:
+            - containerPort: 11211
+              protocol: TCP
+      restartPolicy: Always

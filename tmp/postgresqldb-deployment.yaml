@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yml
+    kompose.service.nodeport.port: "30002"
+    kompose.service.type: NodePort
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: postgresqldb
+  name: postgresqldb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgresqldb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f compose.yml
+        kompose.service.nodeport.port: "30002"
+        kompose.service.type: NodePort
+        kompose.version: 1.35.0 (HEAD)
+      labels:
+        io.kompose.service: postgresqldb
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: websitepetcare
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+          image: postgres
+          name: postgres
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: database-data
+      restartPolicy: Always
+      volumes:
+        - name: database-data
+          persistentVolumeClaim:
+            claimName: database-data

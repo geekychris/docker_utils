@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yml
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: bookie
+  name: bookie
+spec:
+  containers:
+    - args:
+        - bash
+        - -c
+        - bin/apply-config-from-env.py conf/bookkeeper.conf && exec bin/pulsar bookie
+      env:
+        - name: BOOKIE_MEM
+          value: -Xms512m -Xmx512m -XX:MaxDirectMemorySize=256m
+        - name: advertisedAddress
+          value: bookie
+        - name: clusterName
+          value: cluster-a
+        - name: metadataServiceUri
+          value: metadata-store:zk:zookeeper:2181
+        - name: zkServers
+          value: zookeeper:2181
+      image: apachepulsar/pulsar:latest
+      name: bookie
+  restartPolicy: OnFailure
