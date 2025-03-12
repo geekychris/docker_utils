@@ -39,6 +39,9 @@ MySQL is available on port 3306 with the following default credentials:
 ### Connecting via Command Line
 
 ```bash
+#Using docker container
+docker exec -it zookeeper_mysql_memcache_redis_set-mysql-1 /bin/mysql -h localhost -P 3306 -u root -p
+#Using local tools
 mysql -h localhost -P 3306 -u root -p
 # Enter password: 123456
 ```
