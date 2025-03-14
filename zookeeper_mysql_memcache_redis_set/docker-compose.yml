@@ -15,7 +15,18 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
-  
+  minio1:
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    user: ${LOCAL_USER_ID}:${LOCAL_GROUP_ID}
+    environment:
+      MINIO_ROOT_USER: ROOTUSER
+      MINIO_ROOT_PASSWORD: CHANGEME123
+    volumes:
+      - ${HOME}/minio/data:/data
+    command: server /data --console-address ":9001"
   kafka:
     image: confluentinc/cp-kafka:7.4.4
     depends_on:

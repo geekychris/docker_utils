@@ -20,13 +20,14 @@ docker-compose down
 
 The following services are included in this setup:
 
-| Service    | Internal Port | Host Port | Connection String                      |
-|------------|---------------|-----------|---------------------------------------|
-| MySQL      | 3306          | 3306      | mysql://root:123456@localhost:3306    |
-| Memcached  | 11211         | 11211     | localhost:11211                       |
-| Redis      | 6379          | 6379      | redis://localhost:6379                |
-| Kafka      | 9092          | 9092,9094 | localhost:29092 (external connections)|
-| Zookeeper  | 2181          | 22181     | localhost:22181                       |
+| Service   | Internal Port | Host Port | Connection String                      |
+|-----------|---------------|-----------|----------------------------------------|
+| MySQL     | 3306          | 3306      | mysql://root:123456@localhost:3306     |
+| Memcached | 11211         | 11211     | localhost:11211                        |
+| Redis     | 6379          | 6379      | redis://localhost:6379                 |
+| Kafka     | 9092          | 9092,9094 | localhost:29092 (external connections) |
+| Zookeeper | 2181          | 22181     | localhost:22181                        |
+| minio     | 9000          | 9000      | localhost:9000 localhost:9001          |
 
 ## MySQL Connection Instructions
 
@@ -120,6 +121,9 @@ memcached-tool localhost:11211 stats
 # Display slabs
 memcached-tool localhost:11211 display
 ```
+## MINIO (local s3 clone)
+UI is available on 9001.
+default u:ROOTUSER p:CHANGEME123
 
 ## Redis Connection Instructions
 

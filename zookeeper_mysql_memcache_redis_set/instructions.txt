@@ -1,0 +1,1 @@
+create a README.md file explaining the docker_compose.yaml found in this directory.  Include instructions on how to connect to mysql from the shell and create a new database user and schema.  Include also instructions how to connect to memcache, redis and kafka with test clients.  List all the ports that each service uses for accessing that service.
